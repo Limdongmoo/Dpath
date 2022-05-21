@@ -27,7 +27,7 @@ public class FestivalProvider {
             GetFestivalListRes getFestivalListRes = new GetFestivalListRes(festivalList);
             return getFestivalListRes;
         } catch (Exception e) {
-            throw new BaseException(BaseResponseStatus.REQUEST_ERROR);
+            throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
         }
 
 
@@ -38,7 +38,7 @@ public class FestivalProvider {
             GetFestivalByFestivalIdxRes getFestivalByFestivalIdxRes = festivalRepository.getFestivalInfo(festivalIdx);
             return getFestivalByFestivalIdxRes;
         } catch (Exception e) {
-            throw new BaseException(BaseResponseStatus.REQUEST_ERROR);
+            throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
         }
     }
 
