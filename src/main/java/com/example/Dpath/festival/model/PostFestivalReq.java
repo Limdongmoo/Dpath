@@ -1,4 +1,4 @@
-package com.example.Dpath.festival;
+package com.example.Dpath.festival.model;
 
 public class PostFestivalReq {
 }
