@@ -32,8 +32,13 @@ public enum BaseResponseStatus {
      */
     NOT_EXIST_UNIVERSITY(false, 4010, "등록되지 않은 대학교 입니다."),
     NOT_EXIST_CELEBRITY(false, 4011, "등록되지 않은 연예인 입니다."),
-    DATABASE_ERROR(false,4012,"데이터 베이스 오류입니다.");
+    DATABASE_ERROR(false,4012,"데이터 베이스 오류입니다."),
 
+
+
+    POSTING_ERROR(false,5003,"게시물 조회를 위해 IDX를 입력하세요 "),
+    MODIFY_FAIL_POSTING(false, 5005,"게시물 수정에 실패했습니다."),
+    MODIFY_FAIL_POSTING_STATUS(false, 5007, "게시물의 상태를 변경할 수 없습니다.");
 
     private final boolean isSuccess;
     private final int code;
