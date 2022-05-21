@@ -39,8 +39,8 @@ public class FestivalService {
         }
 
         try {
-            int festivalIdx = festivalRepository.createFestival(postFestivalReq.getFestivalName(), postFestivalReq.getDate(), postFestivalReq.getUnivName(),postFestivalReq.getLocation());
-
+            int themeIdx = festivalRepository.getThemeIdx(postFestivalReq.getThemeName());
+            int festivalIdx = festivalRepository.createFestival(postFestivalReq.getFestivalName(), postFestivalReq.getStartDate(), postFestivalReq.getEndDate(), postFestivalReq.getUnivName(), themeIdx);
             for (PostImgUrlsReq p : postFestivalReq.getImgUrls()) {
                 festivalRepository.updateImgs(festivalIdx, p);
 
@@ -49,19 +49,14 @@ public class FestivalService {
             for (Celeb c : postFestivalReq.getCelebs()) {
                 festivalRepository.updateFestival_Celebrity(festivalIdx, c);
             }
-            PostFestivalRes postFestivalRes = new PostFestivalRes(festivalIdx, postFestivalReq.getDate());
+            PostFestivalRes postFestivalRes = new PostFestivalRes(festivalIdx, postFestivalReq.getStartDate());
+
             return postFestivalRes;
         } catch (Exception e) {
-            if(e.getMessage().equals("등록되지 않은 연예인 입니다.")){
-                throw new BaseException(NOT_EXIST_CELEBRITY);
-            }
-            else {
-                System.out.println("e.getMessage() = " + e.getMessage());
+            int themeIdx = festivalRepository.getThemeIdx(postFestivalReq.getThemeName());
+            System.out.println("festivalRepository.createFestival(postFestivalReq.getFestivalName(), postFestivalReq.getStartDate(), postFestivalReq.getEndDate(), postFestivalReq.getUnivName(), themeIdx); = " + festivalRepository.createFestival(postFestivalReq.getFestivalName(), postFestivalReq.getStartDate(), postFestivalReq.getEndDate(), postFestivalReq.getUnivName(), themeIdx));
                 throw new BaseException(BaseResponseStatus.REQUEST_ERROR);
-            }
         }
-
-
     }
 
     public void modifyFestival(int festivalIdx, PutFestivalReq putFestivalReq) throws BaseException{
@@ -90,7 +85,8 @@ public class FestivalService {
 
         try {
             int univIdx = festivalRepository.getUnivIdx(putFestivalReq.getUnivName());
-            festivalRepository.modifyFestival(putFestivalReq.getFestivalName(), putFestivalReq.getStartDate(), putFestivalReq.getEndDate(),putFestivalReq.getUnivName(),putFestivalReq.getLocation(),festivalIdx,univIdx);
+            int themeIdx = festivalRepository.getThemeIdx(putFestivalReq.getThemeName());
+            festivalRepository.modifyFestival(putFestivalReq.getFestivalName(), putFestivalReq.getStartDate(), putFestivalReq.getEndDate(),putFestivalReq.getUnivName(),putFestivalReq.getLocation(),festivalIdx,univIdx,themeIdx);
 
             festivalRepository.deleteBeforePut(festivalIdx);
 

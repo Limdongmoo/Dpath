@@ -17,7 +17,9 @@ public class PostFestivalReq {
     private String festivalName;
     private String univName;
     private String location;
-    private String date;
+    private String startDate;
+    private String endDate;
+    private String themeName;
     private List<Celeb> celebs;
     private List<PostImgUrlsReq> imgUrls;
 

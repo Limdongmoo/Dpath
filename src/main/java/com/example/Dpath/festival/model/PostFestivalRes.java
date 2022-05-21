@@ -11,6 +11,6 @@ import lombok.Setter;
 
 public class PostFestivalRes {
     private int festivalIdx;
-    private String date;
+    private String startDate;
 
 }

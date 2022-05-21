@@ -85,10 +85,10 @@ public class FestivalRepository {
                 ), getFestivalInfoParam);
     }
 
-    int createFestival(String festivalName, String date, String univName,String location) {
+    int createFestival(String festivalName, String startDate, String endDate,String univName,int themeIdx) {
         Integer univIdx = getUnivIdx(univName);
-        String createFestivalQuery = "INSERT INTO Festival(univIdx,date,name) VALUES(?,?,?)";
-        Object[] createFestivalParams = {univIdx, date, festivalName};
+        String createFestivalQuery = "INSERT INTO Festival(univIdx,startDate,endDate,name,themeIdx) VALUES(?,?,?,?,?)";
+        Object[] createFestivalParams = {univIdx, startDate,endDate, festivalName,themeIdx};
 
         jdbcTemplate.update(createFestivalQuery, createFestivalParams);
         return jdbcTemplate.queryForObject("select last_insert_id()", int.class);
@@ -141,9 +141,9 @@ public class FestivalRepository {
         return jdbcTemplate.update(patchStatusQuery, patchStatusParam);
     }
 
-    public int modifyFestival(String festivalName, String startDate, String endDate,String univName,String location,int festivalIdx,int univIdx) {
-        String modifyFestivalQuery = "UPDATE Festival set univIdx=?,startDate=?,endDate=?,name=? where festivalIdx = ?";
-        Object[] modifyFestivalParams = {univIdx, startDate,endDate, festivalName,festivalIdx};
+    public int modifyFestival(String festivalName, String startDate, String endDate,String univName,String location,int festivalIdx,int univIdx,int themeIdx) {
+        String modifyFestivalQuery = "UPDATE Festival set univIdx=?,startDate=?,endDate=?,name=?,themeIdx=? where festivalIdx = ?";
+        Object[] modifyFestivalParams = {univIdx, startDate, endDate, festivalName, themeIdx, festivalIdx};
 
         jdbcTemplate.update(modifyFestivalQuery, modifyFestivalParams);
         return jdbcTemplate.queryForObject("select last_insert_id()", int.class);
@@ -168,6 +168,14 @@ public class FestivalRepository {
         int celebIdx = getCelebIdx(celeb);
 
         return jdbcTemplate.update("INSERT Festival_Celebrity(festivalIdx,celebIdx) VALUES(?,?)", festivalIdx, celebIdx);
+    }
+
+    public int getThemeIdx(String themeName) {
+        String getThemeIdxQuery = "SELECT themeIdx\n" +
+                "from Theme\n" +
+                "where themeName=?";
+        String getThemeIdxParam = themeName;
+        return jdbcTemplate.queryForObject(getThemeIdxQuery, int.class, getThemeIdxParam);
     }
 
 

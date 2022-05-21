@@ -19,6 +19,7 @@ public class PutFestivalReq {
     private String location;
     private String startDate;
     private String endDate;
+    private String themeName;
     private List<Celeb> celebs;
     private List<PostImgUrlsReq> imgUrls;
 

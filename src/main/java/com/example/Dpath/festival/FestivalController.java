@@ -61,7 +61,7 @@ public class FestivalController {
             if (postFestivalReq.getLocation() == null) {
                 return new BaseResponse<>(EMPTY_LOCATION_NAME);
             }
-            if (postFestivalReq.getDate() == null) {
+            if (postFestivalReq.getEndDate() == null||postFestivalReq.getStartDate()==null) {
                 return new BaseResponse<>(EMPTY_DATE);
             }
             PostFestivalRes postFestivalRes = festivalService.createFestival(postFestivalReq);
