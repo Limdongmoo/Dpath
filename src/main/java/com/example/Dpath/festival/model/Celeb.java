@@ -1,6 +1,5 @@
 package com.example.Dpath.festival.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,8 +8,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 
-public class PostFestivalRes {
-    private int festivalIdx;
-    private String date;
-
+public class Celeb {
+    private String name;
 }

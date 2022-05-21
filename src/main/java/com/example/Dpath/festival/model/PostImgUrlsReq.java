@@ -1,12 +1,12 @@
 package com.example.Dpath.festival.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
-
-public class GetFestivalReq {
-    private int festivalIdx;
+public class PostImgUrlsReq {
     private String imgUrl;
 }

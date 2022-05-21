@@ -4,16 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 
-public class GetFestivalRes {
+public class GetFestivalByFestivalIdxRes {
     private int festivalIdx;
-    private String imgUrl;
-    private String festivalName;
-    private String univName;
-    private String themeName;
     private String date;
     private String endDate;
+    private String univName;
+    private String location;
+    private String festivalName;
+    private String themeName;
+    private List<GetImgUrls> imgUrls;
 }

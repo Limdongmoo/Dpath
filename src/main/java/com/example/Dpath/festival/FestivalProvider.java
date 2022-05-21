@@ -2,6 +2,7 @@ package com.example.Dpath.festival;
 
 import com.example.Dpath.config.BaseException;
 import com.example.Dpath.config.BaseResponseStatus;
+import com.example.Dpath.festival.model.GetFestivalByFestivalIdxRes;
 import com.example.Dpath.festival.model.GetFestivalListRes;
 import com.example.Dpath.festival.model.GetFestivalRes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,19 @@ public class FestivalProvider {
             GetFestivalListRes getFestivalListRes = new GetFestivalListRes(festivalList);
             return getFestivalListRes;
         } catch (Exception e) {
-            System.out.println("festivalRepository = " + festivalRepository.getAllFestivalList());
             throw new BaseException(BaseResponseStatus.REQUEST_ERROR);
         }
 
 
+    }
+
+    public GetFestivalByFestivalIdxRes getFestivalByFestivalIdx(int festivalIdx) throws BaseException {
+        try {
+            GetFestivalByFestivalIdxRes getFestivalByFestivalIdxRes = festivalRepository.getFestivalInfo(festivalIdx);
+            return getFestivalByFestivalIdxRes;
+        } catch (Exception e) {
+            throw new BaseException(BaseResponseStatus.REQUEST_ERROR);
+        }
     }
 
 }

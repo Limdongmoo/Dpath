@@ -4,16 +4,22 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 
-public class GetFestivalRes {
-    private int festivalIdx;
-    private String imgUrl;
+public class PutFestivalReq {
+    public PutFestivalReq() {
+    }
+
     private String festivalName;
     private String univName;
-    private String themeName;
-    private String date;
+    private String location;
+    private String startDate;
     private String endDate;
+    private List<Celeb> celebs;
+    private List<PostImgUrlsReq> imgUrls;
+
 }

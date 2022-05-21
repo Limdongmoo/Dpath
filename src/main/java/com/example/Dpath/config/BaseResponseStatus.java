@@ -14,7 +14,11 @@ public enum BaseResponseStatus {
      * 2000 : Request 오류
      */
     //Common
-    REQUEST_ERROR(false, 2000, "입력값을 확인해주세요");
+    REQUEST_ERROR(false, 2000, "입력값을 확인해주세요"),
+    EMPTY_FESTIVAL_NAME(false,2001,"축제 이름을 입력해주세요"),
+    EMPTY_UNIVERSITY_NAME(false,2002,"대학교 이름을 입력해주세요"),
+    EMPTY_LOCATION_NAME(false,2003,"대학교 주소를 입력해주세요"),
+    EMPTY_DATE(false,2004,"행사 일자를 입력해주세요"),
 
 
 
@@ -26,6 +30,8 @@ public enum BaseResponseStatus {
     /**
      * 4000 : Database, Server 오류
      */
+    NOT_EXIST_UNIVERSITY(false, 4010, "등록되지 않은 대학교 입니다."),
+    NOT_EXIST_CELEBRITY(false, 4011, "등록되지 않은 연예인 입니다.");
 
 
     private final boolean isSuccess;
