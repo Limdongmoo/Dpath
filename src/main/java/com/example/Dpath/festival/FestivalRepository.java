@@ -15,7 +15,6 @@ import java.util.List;
 public class FestivalRepository {
 
     private final JdbcTemplate jdbcTemplate;
-    private List<GetImgUrls> imgUrls;
 
     @Autowired
     public FestivalRepository(DataSource dataSource) {
@@ -54,16 +53,16 @@ public class FestivalRepository {
 
         int getFestivalInfoParam = festivalIdx;
         String getFestivalInfoQuery = "SELECT f.festivalIdx,f.startDate,f.endDate,u.name as univName, u.location ,\n" +
-                "       f.name,th.themeName\n" +
+                "       f.name,th.themeName,fi.imgUrl\n" +
                 "FROM Festival as f\n" +
-                "         JOIN(SELECT festivalIdx, imgUrl\n" +
+                "         JOIN(SELECT festivalIdx,imgUrl\n" +
                 "              FROM ImgUrl\n" +
                 "              GROUP BY festivalIdx) fi on fi.festivalIdx = f.festivalIdx\n" +
                 "         JOIN(SELECT univIdx, name,location\n" +
                 "              FROM Univ as un) u on u.univIdx = f.univIdx\n" +
                 "         JOIN(SELECT themeIdx,themeName\n" +
                 "             FROM Theme) th on th.themeIdx = f.themeIdx\n" +
-                "WHERE f.status = 'ACTIVE' and f.festivalIdx =?;";
+                "WHERE f.status = 'ACTIVE' and f.festivalIdx=?;";
         return jdbcTemplate.queryForObject(getFestivalInfoQuery,
                 (rs, rowNum) -> new GetFestivalByFestivalIdxRes(
                         rs.getInt("festivalIdx"),
@@ -73,13 +72,7 @@ public class FestivalRepository {
                         rs.getString("location"),
                         rs.getString("name"),
                         rs.getString("themeName"),
-                        imgUrls = this.jdbcTemplate.query("SELECT imgUrlIdx,imgUrl\n" +
-                                        "FROM ImgUrl\n" +
-                                        "WHERE festivalIdx = ? and status = 'ACTIVE'",
-                                (rk, rowNum1) -> new GetImgUrls(
-                                        rk.getInt("imgUrlIdx"),
-                                        rk.getString("imgUrl")
-                                ), rs.getInt("festivalIdx"))
+                        rs.getString("imgUrl")
 
 
                 ), getFestivalInfoParam);

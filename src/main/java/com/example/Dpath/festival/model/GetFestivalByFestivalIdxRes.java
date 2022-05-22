@@ -12,11 +12,11 @@ import java.util.List;
 
 public class GetFestivalByFestivalIdxRes {
     private int festivalIdx;
-    private String date;
+    private String startDate;
     private String endDate;
     private String univName;
     private String location;
     private String festivalName;
     private String themeName;
-    private List<GetImgUrls> imgUrls;
+    private String imgUrl;
 }
