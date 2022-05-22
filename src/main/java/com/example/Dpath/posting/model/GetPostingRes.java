@@ -15,4 +15,8 @@ public class GetPostingRes {
     private String content; // 게시물 내용
     private String postingName; // 게시물 이름
     private String imgUrl;
+    private String themeName;
+    private String univName;
+    private String startDate;
+    private String endDate;
 }

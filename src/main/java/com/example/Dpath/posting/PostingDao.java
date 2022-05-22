@@ -39,10 +39,16 @@ public class PostingDao {
     // Posting 테이블에 존재하는 전체 게시물들 조회
     public List<GetPostingRes> getPostingList() {
 
-        String getNoticesQuery = "select p.postingIdx, p.festivalIdx, p.personNum, p.content, p.postingName, i.imgUrl\n" +
+        String getNoticesQuery = "select p.postingIdx, p.festivalIdx, p.personNum, p.content, p.postingName, i.imgUrl,th.themeName,univName,f.startDate,f.endDate\n" +
                 "from Posting as p\n" +
                 "         join(select festivalIdx, imgUrl\n" +
                 "              from ImgUrl) i on i.festivalIdx = p.festivalIdx\n" +
+                "         join(select festivalIdx, themeIdx, univIdx , startDate,endDate\n" +
+                "              FROM Festival) f on f.festivalIdx = p.festivalIdx\n" +
+                "        join(select themeIdx,themeName\n" +
+                "             from Theme) th on th.themeIdx = f.themeIdx\n" +
+                "        join(select univIdx,name as univName\n" +
+                "             from Univ) u on u.univIdx = f.univIdx\n" +
                 "where status = 'active'";
         return this.jdbcTemplate.query(getNoticesQuery,
                 (rs, rowNum) -> new GetPostingRes(
@@ -51,28 +57,42 @@ public class PostingDao {
                         rs.getInt("personNum"),
                         rs.getString("content"),
                         rs.getString("postingName"),
-                        rs.getString("imgUrl")
-                ));
+                        rs.getString("imgUrl"),
+                        rs.getString("themeName"),
+                        rs.getString("univName"),
+                        rs.getString("startDate"),
+                        rs.getString("endDate"))
+                );
     }
 
     // Posting 테이블에 존재하는 특정 게시물들 조회
     public GetPostingRes getPosting(int postingIdx) {
 
-        String getPostingQuery = "select p.postingIdx, p.festivalIdx, p.personNum, p.content, p.postingName, i.imgUrl\n" +
+        String getPostingQuery = "select p.postingIdx, p.festivalIdx, p.personNum, p.content, p.postingName, i.imgUrl,th.themeName,univName,f.startDate,f.endDate\n" +
                 "from Posting as p\n" +
                 "         join(select festivalIdx, imgUrl\n" +
                 "              from ImgUrl) i on i.festivalIdx = p.festivalIdx\n" +
-                " where postingIdx = ? and status = 'ACTIVE'";
+                "         join(select festivalIdx, themeIdx, univIdx , startDate,endDate\n" +
+                "              FROM Festival) f on f.festivalIdx = p.festivalIdx\n" +
+                "        join(select themeIdx,themeName\n" +
+                "             from Theme) th on th.themeIdx = f.themeIdx\n" +
+                "        join(select univIdx,name as univName\n" +
+                "             from Univ) u on u.univIdx = f.univIdx\n" +
+                "where status = 'active' and p.postingIdx = ?";
 
         return this.jdbcTemplate.queryForObject(getPostingQuery,
                 (rs, rowNum) -> new GetPostingRes(
-                rs.getInt("postingIdx"),
-                rs.getInt("festivalIdx"),
-                rs.getInt("personNum"),
-                rs.getString("content"),
-                rs.getString("postingName"),
-                rs.getString("imgUrl"))
-                ,postingIdx);
+                        rs.getInt("postingIdx"),
+                        rs.getInt("festivalIdx"),
+                        rs.getInt("personNum"),
+                        rs.getString("content"),
+                        rs.getString("postingName"),
+                        rs.getString("imgUrl"),
+                        rs.getString("themeName"),
+                        rs.getString("univName"),
+                        rs.getString("startDate"),
+                        rs.getString("endDate")),
+                        postingIdx);
     }
 
     // 게시물 수정
