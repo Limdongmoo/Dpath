@@ -39,21 +39,30 @@ public class PostingDao {
     // Posting 테이블에 존재하는 전체 게시물들 조회
     public List<GetPostingRes> getPostingList() {
 
-        String getNoticesQuery = "select postingIdx,festivalIdx,personNum,content,postingName from Posting where status = 'active'";
+        String getNoticesQuery = "select p.postingIdx, p.festivalIdx, p.personNum, p.content, p.postingName, i.imgUrl\n" +
+                "from Posting as p\n" +
+                "         join(select festivalIdx, imgUrl\n" +
+                "              from ImgUrl) i on i.festivalIdx = p.festivalIdx\n" +
+                "where status = 'active'";
         return this.jdbcTemplate.query(getNoticesQuery,
                 (rs, rowNum) -> new GetPostingRes(
                         rs.getInt("postingIdx"),
                         rs.getInt("festivalIdx"),
                         rs.getInt("personNum"),
                         rs.getString("content"),
-                        rs.getString("postingName"))
-        );
+                        rs.getString("postingName"),
+                        rs.getString("imgUrl")
+                ));
     }
 
     // Posting 테이블에 존재하는 특정 게시물들 조회
     public GetPostingRes getPosting(int postingIdx) {
 
-        String getPostingQuery = "select postingIdx,festivalIdx,personNum,content,postingName from Posting where postingIdx = ? and status = 'ACTIVE'";
+        String getPostingQuery = "select p.postingIdx, p.festivalIdx, p.personNum, p.content, p.postingName, i.imgUrl\n" +
+                "from Posting as p\n" +
+                "         join(select festivalIdx, imgUrl\n" +
+                "              from ImgUrl) i on i.festivalIdx = p.festivalIdx\n" +
+                " where postingIdx = ? and status = 'ACTIVE'";
 
         return this.jdbcTemplate.queryForObject(getPostingQuery,
                 (rs, rowNum) -> new GetPostingRes(
@@ -61,7 +70,9 @@ public class PostingDao {
                 rs.getInt("festivalIdx"),
                 rs.getInt("personNum"),
                 rs.getString("content"),
-                rs.getString("postingName")), postingIdx);
+                rs.getString("postingName"),
+                rs.getString("imgUrl"))
+                ,postingIdx);
     }
 
     // 게시물 수정

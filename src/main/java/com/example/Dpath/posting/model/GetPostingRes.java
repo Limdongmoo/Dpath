@@ -14,4 +14,5 @@ public class GetPostingRes {
     private int personNum; // 모집 인원
     private String content; // 게시물 내용
     private String postingName; // 게시물 이름
+    private String imgUrl;
 }

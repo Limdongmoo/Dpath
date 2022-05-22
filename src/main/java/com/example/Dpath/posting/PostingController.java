@@ -71,7 +71,7 @@ public class PostingController {
      */
     @ResponseBody
     @GetMapping("/{postingIdx}")
-    public BaseResponse<GetPostingRes> getBlockList(@PathVariable("postingIdx") int postingIdx) {
+    public BaseResponse<GetPostingRes> getBlockList(@PathVariable int postingIdx) {
         // @RequestParam을 통해 파라미터를 입력받는다.
         try {
             if (postingIdx == -1) { // query string인 userIdx이 없을 경우, 에러를 방생시킨다.

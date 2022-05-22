@@ -37,7 +37,6 @@ public class PostingProvider {
             return getPostingRes;
         } catch (Exception exception) {
             System.out.println("postingDao.getPosting(postingIdx) = " + postingDao.getPosting(postingIdx));
-
             // 에러가 발생하였다면 : 5006 : DataBase Error입니다.
             throw new BaseException(DATABASE_ERROR);
         }
